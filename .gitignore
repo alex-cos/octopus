@@ -1,0 +1,6 @@
+# Ignore the followings directories or files:
+
+build
+bin
+vendor
+tmp

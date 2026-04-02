@@ -1,0 +1,255 @@
+version: "2"
+run:
+  # Exit code when at least one issue was found.
+  # Default: 1
+  issues-exit-code: 1
+  # Include test files or not.
+  # Default: true
+  tests: true
+  # Allow multiple parallel golangci-lint instances running.
+  # Default: false
+  allow-parallel-runners: true
+linters:
+  # Default set of linters.
+  # The value can be: `standard`, `all`, `none`, or `fast`.
+  # Default: standard
+  default: standard
+  # Enable specific linter.
+  enable:
+    - asasalint
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - canonicalheader
+    - containedctx
+    - contextcheck
+    - copyloopvar
+    - cyclop
+    - dogsled
+    - dupl
+    - durationcheck
+    - errchkjson
+    - errname
+    - errorlint
+    - exhaustive
+    - exhaustruct
+    - exptostd
+    - fatcontext
+    - forbidigo
+    - forcetypeassert
+    - funlen
+    - gocheckcompilerdirectives
+    - gochecknoinits
+    - gocognit
+    - goconst
+    - gocritic
+    - gocyclo
+    - godox
+    - goprintffuncname
+    - gosec
+    - iface
+    - importas
+    - intrange
+    - lll
+    - loggercheck
+    - makezero
+    - mirror
+    - misspell
+    - musttag
+    - nakedret
+    - nestif
+    - nilerr
+    - nilnesserr
+    - nilnil
+    - noctx
+    - nonamedreturns
+    - paralleltest
+    - perfsprint
+    - prealloc
+    - predeclared
+    - protogetter
+    - reassign
+    - rowserrcheck
+    - sloglint
+    - sqlclosecheck
+    - staticcheck
+    - testifylint
+    - testpackage
+    - thelper
+    - tparallel
+    - unconvert
+    - unparam
+    - wastedassign
+    - whitespace
+    #   - wrapcheck
+    - zerologlint
+  # Disable specific linter.
+  disable:
+    - mnd
+  # All available settings of specific linters.
+  settings:
+    copyloopvar:
+      # Check all assigning the loop variable to another variable.
+      # Default: false
+      check-alias: false
+    cyclop:
+      # The maximal code complexity to report.
+      # Default: 10
+      max-complexity: 25
+      # The maximal average package complexity.
+      # If it's higher than 0.0 (float) the check is enabled.
+      # Default: 0.0
+      package-average: 10
+    dogsled:
+      # Checks assignments with too many blank identifiers.
+      # Default: 2
+      max-blank-identifiers: 2
+    dupl:
+      # Tokens count to trigger issue.
+      # Default: 150
+      threshold: 200
+    errcheck:
+      # Report about not checking of errors in type assertions: `a := b.(MyStruct)`.
+      # Default: false
+      check-type-assertions: false
+      # report about assignment of errors to blank identifier: `num, _ := strconv.Atoi(numStr)`.
+      # Default: false
+      check-blank: false
+      # To disable the errcheck built-in exclude list.
+      # Default: false
+      disable-default-exclusions: false
+    exhaustive:
+      # Switch statement requires default case even if exhaustive.
+      # Default: false
+      default-signifies-exhaustive: true
+    exhaustruct:
+      # List of regular expressions to exclude struct packages and their names from checks.
+      # Regular expressions must match complete canonical struct package/name/structname.
+      # Default: []
+      exclude:
+        - ^net/http.*
+        - ^net/url.*
+        - ^os/exec.*
+        - ^log/slog\.HandlerOptions$
+        - ^reflect\.StructField$
+        - ^crypto/tls\.Config$
+        - golang.org/.*
+        - github.com/.*
+    fatcontext:
+      # Check for potential fat contexts in struct pointers.
+      # May generate false positives.
+      # Default: false
+      check-struct-pointers: false
+    funlen:
+      # Checks the number of lines in a function.
+      # If lower than 0, disable the check.
+      # Default: 60
+      lines: 120
+      # Checks the number of statements in a function.
+      # If lower than 0, disable the check.
+      # Default: 40
+      statements: 100
+      # Ignore comments when counting lines.
+      # Default: true
+      ignore-comments: true
+    gocognit:
+      # Minimal code complexity to report.
+      # Default: 30 (but we recommend 10-20)
+      min-complexity: 30
+    goconst:
+      # Minimal length of string constant.
+      # Default: 3
+      min-len: 3
+      # Minimum occurrences of constant string count to trigger issue.
+      # Default: 3
+      min-occurrences: 3
+    gocritic:
+      # Which checks should be disabled; can't be combined with 'enabled-checks'.
+      # Default: []
+      disabled-checks:
+        - importShadow
+      # Enable multiple checks by tags in addition to default checks.
+      # Default: []
+      enabled-tags:
+        - diagnostic
+        - style
+        - performance
+        - opinionated
+      disabled-tags:
+        - experimental
+    gocyclo:
+      # Minimal code complexity to report.
+      # Default: 30 (but we recommend 10-20)
+      min-complexity: 25
+    iface:
+      # List of analyzers.
+      # Default: ["identical"]
+      enable:
+        - identical
+        - unused
+    lll:
+      # Max line length, lines longer will be reported.
+      # '\t' is counted as 1 character by default, and can be changed with the tab-width option.
+      # Default: 120.
+      line-length: 120
+      # Tab width in spaces.
+      # Default: 1
+      tab-width: 1
+    nestif:
+      # Minimal complexity of if statements to report.
+      # Default: 5
+      min-complexity: 7
+    paralleltest:
+      # Ignore missing calls to `t.Parallel()` and only report incorrect uses of it.
+      # Default: false
+      ignore-missing: false
+      # Ignore missing calls to `t.Parallel()` in subtests. Top-level tests are
+      # still required to have `t.Parallel`, but subtests are allowed to skip it.
+      # Default: false
+      ignore-missing-subtests: true
+    testifylint:
+      # Disable checkers by name
+      disable:
+        - require-error
+        - float-compare
+    testpackage:
+      allow-packages:
+        - main
+  # Defines a set of rules to ignore issues.
+  exclusions:
+    # Mode of the generated files analysis.
+    # Default: strict
+    generated: lax
+    # Predefined exclusion rules.
+    # Default: []
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    # Excluding configuration per-path, per-linter, per-text and per-source.
+    rules:
+      - path: (.+)\.go$
+        text: G306
+    # Which file paths to exclude: they will be analyzed, but issues from them won't be reported.
+    # Default: []
+    paths:
+      - vendor
+      - tmp
+issues:
+  # Maximum issues count per one linter.
+  # Set to 0 to disable.
+  # Default: 50
+  max-issues-per-linter: 500
+  # Maximum count of issues with the same text.
+  # Set to 0 to disable.
+  # Default: 3
+  max-same-issues: 3
+  # Make issues output unique by line.
+  # Default: true
+  uniq-by-line: true
+
+formatters:
+  # Enable specific formatter.
+  # Default: [] (uses standard Go formatting)
+  enable: []
